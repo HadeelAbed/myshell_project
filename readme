@@ -1,7 +1,260 @@
 # Project Title: myshell - Custom Command Line Shell
 # Course: Operating Systems Lab – Ubuntu Environment
 # Developed by:
-# Hadeel Abed Abu Safia (220211945)
 # Ruba Ahmad Abu Dahrouj (220210862)
 # Doha Jamal AlAssar (220210424)
+# Hadeel Abed Abu Safia (220211945)
+
+# Introduction
+myshell is a simplified Unix/Linux command-line shell implemented as part of an Operating Systems course project.
+It provides users with the ability to interact with the operating system by typing commands and receiving textual responses.
+In addition to supporting a set of internal commands, myshell allows the execution of external programs, input/output redirection, batch file processing, and background task execution.
+This document serves as a user guide for understanding and using myshell efficiently.
+
+<help>
+
+myshell recognizes and executes the following built-in commands:
+
+    cd    clr    dir    echo    environ
+    help  myshell  pause  pwd    quit
+
+Commands can also be placed in batch files to automate execution.
+
+To explore the manual:
+- help more       → displays this manual.
+- help help       → describes the help system.
+- help command    → lists all internal commands.
+- help shell      → explains how myshell works.
+- help bat        → explains how batch files are executed.
+- help i/o redirection → covers input/output redirection.
+- help background → explains background execution mode.
+- help path       → details on valid path syntax.
+
+#
+
+<help shell>
+
+myshell operates by waiting for user input, analyzing the command, executing it, and then returning to the prompt.  
+This loop continues until the user exits the shell.
+
+Core process:
+- Read input from user.
+- Parse and interpret command.
+- Execute the operation.
+- Display prompt again.
+
+#
+
+<help command> <help commands> <help internal command> <help internal commands>
+
+To list all built-in commands, type:
+help command
+
+For specific command usage:
+help <command>
+
+Available internal commands include:
+    cd, clr, dir, echo, environ, help, myshell, pause, pwd, quit
+
+#
+
+<help bat> <help batchfile>
+
+myshell can process commands from a file.  
+When started with a filename as an argument:
+myshell commands.bat
+
+It will read the file line by line and execute the commands sequentially.  
+When it reaches the end of the file, the shell terminates.  
+If launched without arguments, myshell enters interactive mode.
+
+#
+
+<help i/o redirection> <help I/O Redirection> <help io redirection>
+
+myshell supports redirecting standard input and output through the following:
+
+- <  : Reads input from a file.
+- >  : Writes output to a file (overwrites if file exists).
+- >> : Appends output to a file.
+
+Example usage:
+myprog arg1 arg2 <input.txt >output.txt
+
+Absolute file paths are supported, for example:
+/home/user/input.txt
+
+Internal commands supporting redirection:
+- Input: cd, dir, echo
+- Output: dir, environ, echo, help, pwd
+
+#
+
+<help redirection>
+
+Understanding redirection symbols:
+
+- <file     → Input is read from file (must exist, else "Path Error").
+- >file     → Output is written to file (creates or overwrites).
+- >>file    → Output is appended to file (creates if not existing).
+
+Examples:
+cd <dir.txt
+echo hello >greeting.txt
+environ >>env_log.txt
+dir <input.txt >output.txt
+
+When file permissions are insufficient, myshell displays "Open Error".
+
+#
+
+<help background execution> <help background>
+
+myshell allows programs to run in the background using the & operator at the end of the command.  
+This allows users to continue using the shell without waiting for the command to finish.
+
+Example:
+./long_process &
+
+The shell immediately returns to the prompt.
+
+#
+
+<help cd>
+
+Usage:
+cd [directory]
+
+- Changes the current working directory.
+- Updates the PWD environment variable.
+- If no directory is given, displays current directory.
+- If directory doesn't exist, shows "Path Error".
+- Can accept input from file:
+cd <folder.txt
+cd </home/user/folder.txt
+
+#
+
+<help clr> <help clear>
+
+Clears the terminal screen:
+clr
+
+No additional parameters are needed.
+
+#
+
+<help dir>
+
+Lists contents of a directory:
+dir [directory]
+
+- If no directory is specified, lists current one.
+- Does not affect current working directory.
+- Supports input and output redirection:
+dir <dirs.txt >output.txt
+dir >list1.txt >list2.txt
+
+Use absolute paths if needed:
+dir </home/user/folder
+
+#
+
+<help environ>
+
+Displays all environment variables currently set in the system:
+environ
+
+Redirecting output:
+environ >env.txt
+environ >>combined_env.txt
+
+#
+
+<help echo>
+
+Displays a message or content:
+echo Hello World
+
+- Multiple spaces are condensed.
+- Input and output files supported:
+echo <msg1.txt <msg2.txt >out1.txt >out2.txt
+
+You can also use full path:
+echo </home/user/input.txt >/home/user/output.txt
+
+#
+
+<help help>
+
+Displays information about commands:
+help
+help echo
+
+Can output to files:
+help dir >manual.txt
+help echo >>commands.txt
+
+#
+
+<help myshell>
+
+Execute a set of commands from a file:
+myshell commands.bat
+
+Redirect output:
+myshell commands.bat >log.txt
+myshell <input.txt >output.txt
+
+#
+
+<help pause>
+
+Pauses the shell until the user presses Enter:
+pause
+
+Any other input is ignored.
+
+#
+
+<help pwd>
+
+Displays the current working directory:
+pwd
+
+Redirected output:
+pwd >current_dir.txt >>dir_log.txt
+
+#
+
+<help quit> <help exit>
+
+Terminates the shell:
+quit
+exit
+
+#
+
+<help path> <help ..> <help .> <help ~>
+
+myshell supports relative and special path notations:
+
+- .. → parent directory  
+- .  → current directory  
+- ~  → home directory  
+
+Paths with spaces must use backslash (\) to escape:
+echo <my\ file.txt
+
+Unescaped white spaces will result in a "Path Error".
+
+#
+
+# Conclusion
+
+This shell implementation reflects our hands-on experience with core operating system concepts including process creation, environment handling, file redirection, and command parsing.  
+We designed myshell to be minimal yet functional, focusing on usability and clarity for both interactive users and automated batch scripts.
+
+# Thank you for using myshell!
+
 
